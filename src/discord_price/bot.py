@@ -563,6 +563,23 @@ async def force_update_ratio_tickers(interaction):
     await update_all_message_tickers(do_regulars=False, do_ratios=True)
 
 
+@tree.command(name="speak", description="Say something in a channel.")
+async def speak(interaction, channel_id: str, message: str):
+    # Check if user has admin permissions
+    if not is_admin(interaction):
+        await interaction.response.send_message("You need administrator permissions to use this command.", ephemeral=True)
+        return
+
+    channel_id = int(channel_id)
+    channel = client.get_channel(channel_id)
+
+    if not channel:
+        await interaction.response.send_message("Channel not found. Please provide a valid channel ID.", ephemeral=True)
+
+    await channel.send(message)
+    await interaction.response.send_message("Message sent.", ephemeral=True)
+
+
 @tree.command(name="show_settings", description="Show all current bot settings")
 async def show_settings(interaction):
     # Check if user has admin permissions
