@@ -564,7 +564,7 @@ async def force_update_ratio_tickers(interaction):
 
 
 @tree.command(name="speak", description="Say something in a channel.")
-async def speak(interaction, channel_id: str, message: str):
+async def speak(interaction: discord.Interaction, channel_id: str, message: str):
     # Check if user has admin permissions
     if not is_admin(interaction):
         await interaction.response.send_message("You need administrator permissions to use this command.", ephemeral=True)
@@ -575,6 +575,11 @@ async def speak(interaction, channel_id: str, message: str):
 
     if not channel:
         await interaction.response.send_message("Channel not found. Please provide a valid channel ID.", ephemeral=True)
+        return
+
+    if interaction.guild_id != channel.guild.id:
+        await interaction.response.send_message("That's a different server. Try your command over there.", ephemeral=True)
+        return
 
     await channel.send(message)
     await interaction.response.send_message("Message sent.", ephemeral=True)
