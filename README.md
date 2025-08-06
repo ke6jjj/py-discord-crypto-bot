@@ -62,6 +62,10 @@ python -m discord_price.bot
 
 `/remove_message_ratio_tickers <ticker1> <ticker2>` - Remove a ticker ratio from regular messages
 
+## Miscelaneous Commands
+
+`/speak <channel_id> <message>` - Send a message to everyone in a specific channel
+
 ## How It Works
 The bot creates and updates voice channels with current cryptocurrency prices, including price movement indicators (📈 or 📉). It also sends regular messages to designated text channels with current prices and links to CoinMarketCap.
 
